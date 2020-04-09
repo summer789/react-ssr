@@ -1,0 +1,8 @@
+{
+  "name": "react-ssr",
+  "version": "1.0.0",
+  "description": "react ssr ",
+  "main": "index.js",
+  "author": "monian <zhaoyingqinsummer@gmail.com>",
+  "license": "MIT"
+}
