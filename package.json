@@ -4,5 +4,9 @@
   "description": "react ssr ",
   "main": "index.js",
   "author": "monian <zhaoyingqinsummer@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:summer789/react-ssr.git"
+  },
   "license": "MIT"
 }
