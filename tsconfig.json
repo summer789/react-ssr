@@ -1,8 +1,9 @@
 {
     "compilerOptions": {
-        "target": "ES2019",
-        "module": "ESNext",
+        "target": "ES6",
+        "module": "commonjs",
         "jsx": "react",
+        "lib": ["dom", "ESNext"],
         "isolatedModules": true,
         "strict": true,
         "noImplicitReturns": true,
@@ -10,7 +11,7 @@
         "moduleResolution": "node",
         "esModuleInterop": true,
         "resolveJsonModule": true,
-        "baseUrl": "./",
+        "baseUrl": ".",
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
         "forceConsistentCasingInFileNames": true,

@@ -29,21 +29,28 @@ module.exports = {
         'import/resolver': {
             node: {
                 extensions: ['.ts', '.tsx', '.js', '.json'],
+                typescript: {
+                    directory: [require.resolve('./tsconfig.json')],
+                },
             },
         },
     },
     rules: {
         'react/jsx-filename-extension': [1, { extensions: ['.tsx'] }],
+        'jsx-a11y/click-events-have-key-events': 0,
         'no-unused-vars': 'off',
+        'react/prop-types': 0,
+        'import/prefer-default-export': 0,
+        'react/jsx-props-no-spreading': 0,
         'import/extensions': [
             'error',
             'ignorePackages',
             {
+                ts: 'never',
+                tsx: 'never',
                 js: 'never',
                 mjs: 'never',
                 jsx: 'never',
-                ts: 'never',
-                tsx: 'never',
             },
         ],
     },

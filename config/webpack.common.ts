@@ -1,9 +1,8 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import { Configuration } from 'webpack';
 
-const commonConfig: Configuration = {
+export const commonConfig: Configuration = {
     resolve: {
-        extensions: ['.ts', 'tsx'],
+        extensions: ['.ts', '.tsx', '.js', '.jsx'],
     },
     module: {
         rules: [
@@ -18,5 +17,3 @@ const commonConfig: Configuration = {
         ],
     },
 };
-
-export default commonConfig;

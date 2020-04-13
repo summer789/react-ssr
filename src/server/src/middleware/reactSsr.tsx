@@ -1,6 +1,10 @@
-import Application = require('koa');
+import Application from 'koa';
+import React from 'react';
+import { renderToString } from 'react-dom/server';
+import Home from '../../../client/src/pages/home';
 
 const reactSsr: Application.Middleware = async (ctx, next) => {
+    const html = renderToString(<Home />);
     ctx.body = `<!DOCTYPE html>
     <html lang="en">
     <head>
@@ -8,11 +12,11 @@ const reactSsr: Application.Middleware = async (ctx, next) => {
     </head>
     <body>
         <div id="root">
-           react -ssr
+           ${html}
         </div>
     </body>
     </html>
-    <script type="text/javascript" src="main.js"></script>
+    <script type="text/javascript" src="bundle.js"></script>
     `;
     await next();
 };
