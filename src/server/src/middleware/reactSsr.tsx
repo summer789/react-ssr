@@ -1,10 +1,16 @@
 import Application from 'koa';
 import React from 'react';
+import { StaticRouter } from 'react-router';
 import { renderToString } from 'react-dom/server';
-import Home from '../../../client/src/pages/home';
+import App from '../../../client/src/app';
+import { routers } from '../../../client/src/routeConfig';
 
 const reactSsr: Application.Middleware = async (ctx, next) => {
-    const html = renderToString(<Home />);
+    const html = renderToString(
+        <StaticRouter>
+            <App routers={routers} />
+        </StaticRouter>,
+    );
     ctx.body = `<!DOCTYPE html>
     <html lang="en">
     <head>

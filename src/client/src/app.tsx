@@ -8,13 +8,11 @@ interface IAppProps {
 
 const App: FC<IAppProps> = ({ routers }) => {
     return (
-        <BrowserRouter>
-            <Switch>
-                {routers.map((item) => (
-                    <Route key={item.path} {...item} />
-                ))}
-            </Switch>
-        </BrowserRouter>
+        <Switch>
+            {routers.map((item) => (
+                <Route key={item.path} {...item} />
+            ))}
+        </Switch>
     );
 };
 

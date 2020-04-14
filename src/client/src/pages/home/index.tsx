@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
     function handleClick() {
@@ -7,8 +8,18 @@ const Home = () => {
     }
 
     return (
-        <div role="button" tabIndex={0} onClick={handleClick}>
-            this is app
+        <div>
+            <ul>
+                <li>
+                    <Link to="/">首页</Link>
+                </li>
+                <li>
+                    <Link to="/list">列表</Link>
+                </li>
+            </ul>
+            <div role="button" tabIndex={0} onClick={handleClick}>
+                this is ssr app monian
+            </div>
         </div>
     );
 };

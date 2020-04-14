@@ -23,9 +23,13 @@ compiler.watch(
         }
     },
 );
+
 compiler.hooks.done.tap('done', function (data) {
     console.log(`\n  ${chalk.greenBright('code compiler done')}`);
-    ['SIGINT', 'SIGTERM'].forEach((sig) => {
-        process.on(sig as NodeJS.Signals, () => process.exit());
+});
+
+['SIGINT', 'SIGTERM'].forEach((sig) => {
+    process.on(sig as NodeJS.Signals, () => {
+        process.exit();
     });
 });

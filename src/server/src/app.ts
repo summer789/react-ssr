@@ -8,7 +8,6 @@ import { getPort } from '../../../utils/getPort';
 async function startServer() {
     const port = await getPort(HOST, NODE_SERVER_PORT || process.env.PORT);
     const app = new Koa();
-
     app.use(handleError);
     app.use(koaStatic(path.resolve(process.cwd(), 'build/static/client/js')));
     app.use(reactSsr);

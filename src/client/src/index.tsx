@@ -1,6 +1,12 @@
 import React from 'react';
 import ReactDom from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
 import App from './app';
 import { routers } from './routeConfig';
 
-ReactDom.render(<App routers={routers} />, document.getElementById('root'));
+ReactDom.hydrate(
+    <BrowserRouter>
+        <App routers={routers} />
+    </BrowserRouter>,
+    document.getElementById('root'),
+);
