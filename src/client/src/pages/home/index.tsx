@@ -1,7 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { ISFC } from '../../../../utils/interface';
+import { useInitData } from '../../../hooks/useInitData';
 
-const Home = () => {
+const Home: ISFC = () => {
+    useInitData();
     function handleClick() {
         // eslint-disable-next-line no-alert
         alert('cccc');
@@ -22,6 +25,14 @@ const Home = () => {
             </div>
         </div>
     );
+};
+
+Home.fetchInitialProps = () => {
+    return new Promise((resolve, reject) => {
+        resolve({
+            data: '123',
+        });
+    });
 };
 
 export default Home;

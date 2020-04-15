@@ -1,5 +1,5 @@
 import Home from './pages/home';
-import { IRouterItem } from '../../common/interface';
+import { IRouterItem } from '../../utils/interface';
 
 export const routers: IRouterItem[] = [
     {

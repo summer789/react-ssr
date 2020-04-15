@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { IRouterItem } from '../../common/interface';
+import { Switch, Route } from 'react-router-dom';
+import { IRouterItem } from '../../utils/interface';
 
 interface IAppProps {
     routers: IRouterItem[];

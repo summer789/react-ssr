@@ -37,6 +37,7 @@ module.exports = {
     },
     rules: {
         'react/jsx-filename-extension': [1, { extensions: ['.tsx'] }],
+        'react/state-in-constructor': 0,
         'jsx-a11y/click-events-have-key-events': 0,
         'no-unused-vars': 'off',
         'react/prop-types': 0,
