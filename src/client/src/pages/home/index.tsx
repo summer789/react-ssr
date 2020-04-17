@@ -1,10 +1,25 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ISFC } from '../../../../utils/interface';
 import { useInitData } from '../../../hooks/useInitData';
 
+interface IHomeState {
+    content: string;
+}
+
 const Home: ISFC = () => {
-    useInitData();
+    const initData = useInitData();
+    const [state, setState] = useState<IHomeState>({ ...(initData || {}) } as IHomeState);
+    const { content } = state;
+    useEffect(() => {
+        async function fetchData() {
+            const data = Home.fetchInitialProps();
+            setState((preState) => ({ ...preState, ...data }));
+        }
+        if (!initData) {
+            fetchData();
+        }
+    }, [initData]);
     function handleClick() {
         // eslint-disable-next-line no-alert
         alert('cccc');
@@ -12,16 +27,8 @@ const Home: ISFC = () => {
 
     return (
         <div>
-            <ul>
-                <li>
-                    <Link to="/">首页</Link>
-                </li>
-                <li>
-                    <Link to="/list">列表</Link>
-                </li>
-            </ul>
             <div role="button" tabIndex={0} onClick={handleClick}>
-                this is ssr app monian
+                {content}
             </div>
         </div>
     );
@@ -30,7 +37,7 @@ const Home: ISFC = () => {
 Home.fetchInitialProps = () => {
     return new Promise((resolve, reject) => {
         resolve({
-            data: '123',
+            content: '这是首页',
         });
     });
 };

@@ -1,13 +1,15 @@
 import React, { useState, FC, useEffect } from 'react';
 import { mockData } from '../../../../utils/mock';
 import { IMackDataItem, ISFC } from '../../../../utils/interface';
+import { useInitData } from '../../../hooks/useInitData';
 
 interface IListState {
     list: IMackDataItem[];
 }
 
 const List: ISFC<any> = () => {
-    const [state, setState] = useState<IListState>({ list: [] });
+    const initData = useInitData();
+    const [state, setState] = useState<IListState>({ ...(initData ?? {}) });
     const { list } = state;
     useEffect(() => {
         async function fetchListData() {
@@ -19,7 +21,10 @@ const List: ISFC<any> = () => {
                 }));
             }
         }
-    }, []);
+        if (!initData) {
+            fetchListData();
+        }
+    }, [initData]);
     return (
         <ul>
             {list.map(({ title, desc }) => (
@@ -35,7 +40,9 @@ const List: ISFC<any> = () => {
 List.fetchInitialProps = () => {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            resolve(mockData);
+            resolve({
+                list: mockData,
+            });
         }, 300);
     });
 };

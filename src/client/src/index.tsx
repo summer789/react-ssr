@@ -3,7 +3,6 @@ import ReactDom from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import App from './app';
 import { routers } from './routeConfig';
-import { InitDataContext } from './context';
 
 function render() {
     const dataDom = document.querySelector<HTMLTextAreaElement>('#ssrTextInitData');
@@ -15,11 +14,12 @@ function render() {
         console.warn(error);
     }
 
+    // eslint-disable-next-line no-underscore-dangle
+    window.__INIT_DATA__ = Object.freeze(initData);
+
     ReactDom.hydrate(
         <BrowserRouter>
-            <InitDataContext.Provider value={{ initData }}>
-                <App routers={routers} />
-            </InitDataContext.Provider>
+            <App routers={routers} />
         </BrowserRouter>,
         document.getElementById('root'),
     );

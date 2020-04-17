@@ -41,8 +41,9 @@ const reactSsr: Application.Middleware = async (ctx, next) => {
         ${JSON.stringify(initData)}
     </textarea>
     </body>
+        <script type="text/javascript" src="bundle.js"></script>
     </html>
-    <script type="text/javascript" src="bundle.js"></script>
+
     `;
     await next();
 };
