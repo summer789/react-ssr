@@ -1,35 +1,90 @@
-import webpack from 'webpack';
+import { spawn, ChildProcessWithoutNullStreams } from 'child_process';
 import chalk from 'chalk';
-import { webpackDevConfig } from '../config/webpack.dev.config';
+import { debounce } from 'lodash';
+import { delay } from '../utils/common';
+import { CLIENT_CODE_COMPILER_COMPLETED, SERVER_CODE_COMPILER_COMPLETED } from '../utils/constant';
 
-const compiler = webpack(webpackDevConfig);
-compiler.watch(
-    {
-        aggregateTimeout: 300, // 类似节流功能,聚合多个更改一起构建
-        ignored: /node_modules/, //排除文件
-        poll: 2000, //轮训的方式检查变更 单位：秒  ,如果监听没生效，可以试试这个选项.
-    },
-    (err, stats) => {
-        let json = stats.toJson('minimal');
-        if (json.errors) {
-            json.errors.forEach((item) => {
-                console.log(chalk.red(item));
-            });
-        }
-        if (json.warnings) {
-            json.warnings.forEach((item) => {
-                console.log(chalk.yellowBright(item));
-            });
-        }
-    },
-);
+let clientCodeCompilerCompleted = false;
 
-compiler.hooks.done.tap('done', function (data) {
-    console.log(`\n  ${chalk.greenBright('code compiler done')}`);
+const runClientStart = spawn('yarn', ['run', 'client:start']);
+
+const runServerStart = spawn('yarn', ['run', 'server:start']);
+
+let runServer: ChildProcessWithoutNullStreams;
+
+
+function startServer() {
+    runServer = spawn('node', [`${process.cwd()}/build/server/server.js`]);
+    runServer.stdout.on('data', (data) => {
+        console.log(data.toString())
+    });
+    runServer.stderr.on('data',(data)=>{
+        console.log(data.toString())
+    });
+    runServer.on('exit', (code) => {
+        console.log(`server  exit ${code}`);
+    })
+}
+
+
+const controlRunServer = debounce(() => {
+    runServer.kill();
+    startServer();
+}, 2000);
+
+
+runServerStart.stdout.on('data', async (data) => {
+    const str: string = data.toString();
+    console.log(str);
+    if (str.includes(SERVER_CODE_COMPILER_COMPLETED)) {
+        if (!runServer) {
+            while (!clientCodeCompilerCompleted) {
+                await delay(2000);
+            }
+            startServer();
+        } else {
+            controlRunServer();
+        }
+
+    }
+});
+
+runServerStart.on('exit', () => {
+    console.log('\nserver code watch exit');
+});
+
+
+
+
+runClientStart.stdout.on('data', (data) => {
+    const str: string = data.toString();
+    console.log(str);
+    if (str.includes(CLIENT_CODE_COMPILER_COMPLETED)) {
+        clientCodeCompilerCompleted = true;
+        if (runServer) {
+            controlRunServer();
+        }
+    }
+});
+
+
+runClientStart.on('exit', () => {
+    console.log('\n client code watch exit');
+});
+
+process.on('exit', (code) => {
+    console.log(chalk.red(`\n app exit ${code}`));
 });
 
 ['SIGINT', 'SIGTERM'].forEach((sig) => {
     process.on(sig as NodeJS.Signals, () => {
-        process.exit();
+        runClientStart.kill();
+        if (runServerStart) {
+            runServerStart.kill();
+        }
+        if (runServer) {
+            runServer.kill();
+        }
+        process.exit(0);
     });
 });

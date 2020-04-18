@@ -3,7 +3,7 @@ import { FunctionComponent, ComponentClass } from 'react';
 export interface IRouterItem {
     path: string;
     exact: boolean;
-    component: ISFC<any>;
+    component: SSRHOC;
 }
 
 export interface IMackDataItem {
@@ -11,6 +11,22 @@ export interface IMackDataItem {
     desc: string;
 }
 
+
+export interface ITdkData {
+    title: string;
+    keywords: string;
+    description: string;
+}
+
+export interface IPageData {
+    data: any;
+    tdk: ITdkData;
+}
+
 export interface ISFC<T = any> extends FunctionComponent<T> {
-    fetchInitialProps(): Promise<any>;
+    fetchInitialProps(): Promise<IPageData>;
+}
+
+export interface SSRHOC extends ComponentClass {
+    fetchInitialProps(): Promise<IPageData>;
 }

@@ -5,9 +5,9 @@
     "main": "index.js",
     "author": "monian <zhaoyingqinsummer@gmail.com>",
     "scripts": {
-        "dev": "npx ts-node -P ./tsconfig.json ./scripts/dev.ts",
         "start": "npx ts-node -P ./tsconfig.json ./scripts/start.ts",
-        "server:build": "npx ts-node -P ./tsconfig.json ./scripts/server.ts",
+        "client:start": "npx ts-node -P ./tsconfig.json ./scripts/client-start.ts",
+        "server:start": "npx ts-node -P ./tsconfig.json ./scripts/server-start.ts",
         "server": "npx nodemon --watch src/ -e ts,tsx --exec 'ts-node -P ./tsconfig.json ./src/server/src/app.ts'",
         "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
         "lint": "yarn run lint-eslint",
@@ -20,7 +20,6 @@
     "license": "MIT",
     "husky": {
         "hooks": {
-            "pre-commit": "lint-staged",
             "commit-msg": "commitlint -c .commitlintrc.js -E HUSKY_GIT_PARAMS"
         }
     },
@@ -36,8 +35,10 @@
         "@commitlint/config-conventional": "^8.3.4",
         "@types/koa": "^2.11.3",
         "@types/koa-static": "^4.0.1",
+        "@types/lodash": "^4.14.149",
         "@types/react": "^16.9.34",
         "@types/react-dom": "^16.9.6",
+        "@types/react-helmet": "^5.0.15",
         "@types/react-router-dom": "^5.1.4",
         "@types/webpack-merge": "^4.1.5",
         "@types/webpack-node-externals": "^1.7.1",
@@ -95,6 +96,7 @@
         "axios": "^0.19.2",
         "koa": "^2.11.0",
         "koa-static": "^5.0.0",
+        "lodash": "^4.17.15",
         "react": "^16.13.1",
         "react-dom": "^16.13.1",
         "react-helmet": "^5.2.1",

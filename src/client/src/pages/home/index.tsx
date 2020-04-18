@@ -1,25 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
 import { ISFC } from '../../../../utils/interface';
-import { useInitData } from '../../../hooks/useInitData';
+import pageContainer from '../../components/pageContainer';
 
-interface IHomeState {
-    content: string;
+interface IHomeProps {
+    initData: {
+        content: string;
+    }
 }
 
-const Home: ISFC = () => {
-    const initData = useInitData();
-    const [state, setState] = useState<IHomeState>({ ...(initData || {}) } as IHomeState);
-    const { content } = state;
-    useEffect(() => {
-        async function fetchData() {
-            const data = Home.fetchInitialProps();
-            setState((preState) => ({ ...preState, ...data }));
-        }
-        if (!initData) {
-            fetchData();
-        }
-    }, [initData]);
+
+const Home: ISFC<IHomeProps> = ({ initData }) => {
+    const { content = '没有数据' } = initData;
     function handleClick() {
         // eslint-disable-next-line no-alert
         alert('cccc');
@@ -35,11 +26,18 @@ const Home: ISFC = () => {
 };
 
 Home.fetchInitialProps = () => {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         resolve({
-            content: '这是首页',
+            data: {
+                content: '这是首页',
+            },
+            tdk: {
+                title: '首页',
+                keywords: 'ssr 首页',
+                description: '这是一个ssr的首页'
+            }
         });
     });
 };
 
-export default Home;
+export default pageContainer(Home);

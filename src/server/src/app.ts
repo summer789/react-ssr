@@ -9,7 +9,7 @@ async function startServer() {
     const port = await getPort(NODE_SERVER_PORT || process.env.PORT);
     const app = new Koa();
     app.use(handleError);
-    app.use(koaStatic(path.resolve(process.cwd(), 'build/static/client/js')));
+    app.use(koaStatic(path.resolve(process.cwd(), 'build/client/js')));
     app.use(reactSsr);
     app.listen(port);
     // eslint-disable-next-line no-console

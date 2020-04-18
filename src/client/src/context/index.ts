@@ -1,3 +1,9 @@
 import { createContext } from 'react';
+import { IPageData } from '../../../utils/interface';
 
-export const InitDataContext = createContext<{ initData?: any }>({ initData: undefined });
+
+export interface InitDataContextData {
+    pageData: IPageData;
+}
+
+export const InitDataContext = createContext<InitDataContextData>({ pageData: {} as IPageData });

@@ -7,13 +7,14 @@ import { commonConfig } from './webpack.common';
 process.env.BABEL_ENV = 'node';
 
 export const webpackServerConfig: Configuration = merge(commonConfig, {
+    target: 'node',
     mode: 'development',
     entry: paths.serverApp,
     output: {
         filename: 'server.js',
         path: paths.serverOutPutPath,
     },
-    externals: [nodeExternals(), 'ssrVar'],
+    externals: [nodeExternals()],
     plugins: [
         new DefinePlugin({
             __SERVER__: true,

@@ -1,30 +1,15 @@
-import React, { useState, FC, useEffect } from 'react';
+import React from 'react';
 import { mockData } from '../../../../utils/mock';
 import { IMackDataItem, ISFC } from '../../../../utils/interface';
-import { useInitData } from '../../../hooks/useInitData';
+import pageContainer from '../../components/pageContainer';
 
-interface IListState {
-    list: IMackDataItem[];
+interface IListProps {
+    initData: {
+        list: IMackDataItem[];
+    }
 }
 
-const List: ISFC<any> = () => {
-    const initData = useInitData();
-    const [state, setState] = useState<IListState>({ ...(initData ?? {}) });
-    const { list } = state;
-    useEffect(() => {
-        async function fetchListData() {
-            const res = await List.fetchInitialProps();
-            if (Array.isArray(res)) {
-                setState((preState) => ({
-                    ...preState,
-                    list: res,
-                }));
-            }
-        }
-        if (!initData) {
-            fetchListData();
-        }
-    }, [initData]);
+const List: ISFC<IListProps> = ({ initData: { list = [] } }) => {
     return (
         <ul>
             {list.map(({ title, desc }) => (
@@ -41,10 +26,18 @@ List.fetchInitialProps = () => {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             resolve({
-                list: mockData,
+                data: {
+                    list: mockData,
+                },
+                tdk: {
+                    title: '列表',
+                    keywords: 'ssr list',
+                    description: '这是ssr list page',
+                },
+
             });
         }, 300);
     });
 };
 
-export default List;
+export default pageContainer(List);

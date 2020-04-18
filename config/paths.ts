@@ -8,6 +8,6 @@ export const paths = {
     appIndex: resolveApp('src/client/src/index.tsx'),
     build: resolveApp('build'),
     appTsConfig: resolveApp('tsconfig.json'),
-    appOutputPath: resolveApp('build/static/client/js'),
-    serverOutPutPath: resolveApp('build/static/server/js'),
+    appOutputPath: resolveApp('build/client/js'),
+    serverOutPutPath: resolveApp('build/server'),
 };

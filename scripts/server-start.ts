@@ -1,7 +1,10 @@
 import webpack from 'webpack';
 import chalk from 'chalk';
-import { spawn } from 'child_process';
 import { webpackServerConfig } from '../config/webpack.server.config';
+import { SERVER_CODE_COMPILER_COMPLETED } from '../utils/constant';
+
+
+console.log('\nstarting server code compile')
 
 const compiler = webpack(webpackServerConfig);
 compiler.watch(
@@ -26,10 +29,7 @@ compiler.watch(
 );
 
 compiler.hooks.done.tap('done', function (data) {
-    console.log(`\n  ${chalk.greenBright('server code compiler done')}`);
-    console.log(`${process.cwd()}/build/static/server/js/server.js`);
-    const runServer = spawn('node', [`${process.cwd()}/build/static/server/js/server.js`]);
-    runServer.stdout.pipe(process.stdin);
+    console.log(`\n${chalk.greenBright(SERVER_CODE_COMPILER_COMPLETED)}`);
 });
 
 ['SIGINT', 'SIGTERM'].forEach((sig) => {

@@ -3,4 +3,4 @@ interface Window {
     __CLIENT__: boolean;
 }
 
-declare module 'ssrVar';
+declare var __SERVER__: boolean;
