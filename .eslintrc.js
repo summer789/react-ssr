@@ -13,6 +13,8 @@ module.exports = {
         'prettier/@typescript-eslint',
     ],
     globals: {
+        __PROD__: 'readonly',
+        __SERVER__: 'readonly',
         Atomics: 'readonly',
         SharedArrayBuffer: 'readonly',
     },

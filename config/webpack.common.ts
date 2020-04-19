@@ -1,9 +1,11 @@
 import { Configuration } from 'webpack';
+import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 
 export const commonConfig: Configuration = {
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.jsx'],
     },
+    performance: false,
     module: {
         rules: [
             {
@@ -16,4 +18,5 @@ export const commonConfig: Configuration = {
             },
         ],
     },
+    plugins: [new CleanWebpackPlugin()],
 };

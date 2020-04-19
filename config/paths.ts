@@ -10,4 +10,5 @@ export const paths = {
     appTsConfig: resolveApp('tsconfig.json'),
     appOutputPath: resolveApp('build/client'),
     serverOutPutPath: resolveApp('build/server'),
+    publicPath: '/',
 };

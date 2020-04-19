@@ -7,6 +7,7 @@ import { routers } from '../../../client/src/routeConfig';
 import { matchRoute } from '../../../utils/common';
 import { InitDataContext } from '../../../client/src/context';
 import { IPageData } from '../../../utils/interface';
+import { getAssets } from '../common/assets';
 
 const defaultTdk = {
     title: 'react ssr',
@@ -18,6 +19,7 @@ const reactSsr: Application.Middleware = async (ctx, next) => {
     const {
         request: { path },
     } = ctx;
+    const assets = getAssets();
     const currentRoute = matchRoute(path, routers);
     const fetchData = currentRoute?.component?.fetchInitialProps;
     let pageData: IPageData = {} as IPageData;
@@ -44,6 +46,7 @@ const reactSsr: Application.Middleware = async (ctx, next) => {
         <title>${tdk.title}</title>
         <meta name="keywords" content="${tdk.keywords}" />
         <meta name="description" content="${tdk.description}" />
+        ${assets.css.join('')}
         <link rel="stylesheet" type="text/css" href="/css/main.css" />
     </head>
     <body>
@@ -54,7 +57,7 @@ const reactSsr: Application.Middleware = async (ctx, next) => {
         ${JSON.stringify(pageData)}
     </textarea>
     </body>
-        <script type="text/javascript" src="/js/bundle.js"></script>
+    ${assets.js.join('')}
     </html>
     `;
     await next();

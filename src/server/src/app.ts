@@ -13,6 +13,7 @@ async function startServer() {
     app.use(reactSsr);
     app.listen(port);
     // eslint-disable-next-line no-console
+    console.log(process.env.NODE_ENV);
     console.log('server start', `http://localhost:${port}`);
 }
 
