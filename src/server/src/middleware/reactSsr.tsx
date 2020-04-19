@@ -28,7 +28,7 @@ const reactSsr: Application.Middleware = async (ctx, next) => {
     const { tdk = defaultTdk } = pageData;
 
     const context = {
-        pageData: pageData,
+        pageData,
     };
     const html = renderToString(
         <StaticRouter location={path}>
@@ -44,6 +44,7 @@ const reactSsr: Application.Middleware = async (ctx, next) => {
         <title>${tdk.title}</title>
         <meta name="keywords" content="${tdk.keywords}" />
         <meta name="description" content="${tdk.description}" />
+        <link rel="stylesheet" type="text/css" href="/css/main.css" />
     </head>
     <body>
         <div id="root">
@@ -53,7 +54,7 @@ const reactSsr: Application.Middleware = async (ctx, next) => {
         ${JSON.stringify(pageData)}
     </textarea>
     </body>
-        <script type="text/javascript" src="bundle.js"></script>
+        <script type="text/javascript" src="/js/bundle.js"></script>
     </html>
     `;
     await next();

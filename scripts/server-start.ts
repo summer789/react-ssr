@@ -3,8 +3,7 @@ import chalk from 'chalk';
 import { webpackServerConfig } from '../config/webpack.server.config';
 import { SERVER_CODE_COMPILER_COMPLETED } from '../utils/constant';
 
-
-console.log('\nstarting server code compile')
+console.log('\nstarting server code compile');
 
 const compiler = webpack(webpackServerConfig);
 compiler.watch(

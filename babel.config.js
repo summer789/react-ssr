@@ -23,6 +23,7 @@ module.exports = function (api) {
                         },
                     ],
                 ],
+                plugins: ['./config/babel/plugins/no-require-less'],
             },
             development: {
                 presets: [
