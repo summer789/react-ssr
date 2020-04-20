@@ -1,8 +1,12 @@
 import { Configuration } from 'webpack';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
+import { paths } from './paths';
 
 export const commonConfig: Configuration = {
     resolve: {
+        alias: {
+            '@build': paths.build,
+        },
         extensions: ['.ts', '.tsx', '.js', '.jsx'],
     },
     performance: false,

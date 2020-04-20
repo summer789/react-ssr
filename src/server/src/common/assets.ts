@@ -2,7 +2,8 @@
 /* eslint-disable import/no-dynamic-require */
 /* eslint-disable global-require */
 
-import manifestJson from '@build/client/manifest.json';
+// import manifestJson from '@build/client/manifest.json';
+// const manifestJson = require('@build/client/manifest.json');
 
 interface IAssets {
     js: string[];
@@ -16,9 +17,14 @@ export const getAssets = () => {
     };
 
     if (!__PROD__) {
-        assets.js.push('<script type="text/javascript"  src="/js/main.js"></script>');
-        assets.css.push('<link rel="stylesheet" type="text/css" href="/css/main.css" />');
+        assets.js.push(
+            '<script type="text/javascript"  src="http://localhost:9002/js/main.js"></script>',
+        );
+        assets.css.push(
+            '<link rel="stylesheet" type="text/css" href="http://localhost:9002/css/main.css" />',
+        );
     } else {
+        const manifestJson = require('@build/client/manifest.json');
         Object.keys(manifestJson).forEach((item) => {
             const filePath = (manifestJson as any)[item];
             if (/\.js$/.test(filePath)) {

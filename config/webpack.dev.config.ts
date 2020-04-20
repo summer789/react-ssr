@@ -1,4 +1,4 @@
-import { Configuration, DefinePlugin } from 'webpack';
+import { Configuration, DefinePlugin, HotModuleReplacementPlugin } from 'webpack';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import merge from 'webpack-merge';
 import { paths } from './paths';
@@ -9,10 +9,18 @@ process.env.BABEL_ENV = ENV_DEV;
 
 export const webpackDevConfig: Configuration = merge(commonConfig, {
     mode: ENV_DEV,
-    entry: paths.appIndex,
+    entry: {
+        main: ['react-hot-loader/patch', paths.appIndex],
+    },
     output: {
+        publicPath: 'http://localhost:9002',
         filename: 'js/main.js',
         path: paths.appOutputPath,
+    },
+    resolve: {
+        alias: {
+            'react-dom': '@hot-loader/react-dom',
+        },
     },
     devtool: 'source-map',
     module: {
@@ -42,6 +50,7 @@ export const webpackDevConfig: Configuration = merge(commonConfig, {
         ],
     },
     plugins: [
+        new HotModuleReplacementPlugin(),
         new DefinePlugin({
             __SERVER__: false,
             'process.env': { NODE_ENV: `"${ENV_DEV}"` },

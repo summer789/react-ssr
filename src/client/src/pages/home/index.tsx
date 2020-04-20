@@ -11,6 +11,7 @@ interface IHomeProps {
 
 const Home: ISFC<IHomeProps> = ({ initData }) => {
     const { content = '没有数据' } = initData;
+    // console.log('bbbbb');
     function handleClick() {
         // eslint-disable-next-line no-alert
         alert('cccc');

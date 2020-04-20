@@ -2,11 +2,7 @@ import { spawn, ChildProcessWithoutNullStreams } from 'child_process';
 import chalk from 'chalk';
 import { debounce } from 'lodash';
 import { delay } from '../utils/common';
-import {
-    CLIENT_CODE_COMPILER_COMPLETED,
-    SERVER_CODE_COMPILER_COMPLETED,
-    ENV_DEV,
-} from '../utils/constant';
+import { CLIENT_CODE_COMPILER_COMPLETED, SERVER_CODE_COMPILER_COMPLETED } from '../utils/constant';
 
 let clientCodeCompilerCompleted = false;
 

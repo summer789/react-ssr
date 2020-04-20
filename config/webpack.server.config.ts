@@ -16,11 +16,6 @@ export const webpackServerConfig: Configuration = merge(commonConfig, {
         path: paths.serverOutPutPath,
     },
     externals: [nodeExternals()],
-    resolve: {
-        alias: {
-            '@build': paths.build,
-        },
-    },
     plugins: [
         new DefinePlugin({
             __SERVER__: true,

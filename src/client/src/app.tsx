@@ -1,5 +1,7 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import React, { FC } from 'react';
 import { Switch, Route } from 'react-router-dom';
+import { hot } from 'react-hot-loader/root';
 import { IRouterItem } from '../../utils/interface';
 import Layout from './components/layout';
 
@@ -19,4 +21,4 @@ const App: FC<IAppProps> = ({ routers }) => {
     );
 };
 
-export default App;
+export default hot(App);

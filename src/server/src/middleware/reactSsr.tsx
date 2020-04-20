@@ -47,7 +47,6 @@ const reactSsr: Application.Middleware = async (ctx, next) => {
         <meta name="keywords" content="${tdk.keywords}" />
         <meta name="description" content="${tdk.description}" />
         ${assets.css.join('')}
-        <link rel="stylesheet" type="text/css" href="/css/main.css" />
     </head>
     <body>
         <div id="root">
