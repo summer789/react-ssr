@@ -1,4 +1,5 @@
 import chalk from 'chalk';
+import cors from 'cors';
 import webpack from 'webpack';
 import express from 'express';
 import logSymbols from 'log-symbols';
@@ -18,14 +19,11 @@ function startApp() {
     };
 
     const hotMiddlewareOptions: webpackHotMiddleware.ClientOptions = {
-        // sse 路由
         path: '/__webpack_hmr',
-        // 编译出错会在网页中显示出错信息遮罩
-        overlay: true,
-        // webpack 卡住自动刷新页面
         reload: true,
     };
 
+    derServer.use(cors());
     derServer.use(historyFallback());
     derServer.use(webpackDevMiddleware(compiler, devMiddlewareOptions));
     derServer.use(webpackHotMiddleware(compiler, hotMiddlewareOptions));

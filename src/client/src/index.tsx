@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+/* eslint-disable no-underscore-dangle */
 import React from 'react';
 import ReactDom from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
@@ -10,11 +12,9 @@ function render() {
     try {
         initData = JSON.parse(dataDom ? dataDom.value : '');
     } catch (error) {
-        // eslint-disable-next-line no-console
         console.warn(error);
     }
 
-    // eslint-disable-next-line no-underscore-dangle
     window.__INIT_DATA__ = Object.freeze(initData);
 
     ReactDom.hydrate(
@@ -27,8 +27,6 @@ function render() {
 
 render();
 
-// console.log('aaa',(module as any).hot)
-
-if (process.env.NODE_ENV === 'development' && (module as any).hot) {
-    (module as any).hot.accept();
-}
+// if ((module as any).hot) {
+//     (module as any).hot.accept();
+// }

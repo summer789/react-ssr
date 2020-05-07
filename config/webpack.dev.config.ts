@@ -9,11 +9,13 @@ process.env.BABEL_ENV = ENV_DEV;
 
 export const webpackDevConfig: Configuration = merge(commonConfig, {
     mode: ENV_DEV,
-    entry: {
-        main: ['react-hot-loader/patch', paths.appIndex],
-    },
+    entry: [
+        // 'webpack-hot-middleware/client?path=http://localhost:9002/__webpack_hmr&reload=true',
+        'react-hot-loader/patch',
+        paths.appIndex,
+    ],
     output: {
-        publicPath: 'http://localhost:9002',
+        publicPath: 'http://localhost:9002/',
         filename: 'js/main.js',
         path: paths.appOutputPath,
     },
@@ -29,7 +31,12 @@ export const webpackDevConfig: Configuration = merge(commonConfig, {
                 test: /\.less$/,
                 use: [
                     // { loader: 'style-loader' },
-                    { loader: MiniCssExtractPlugin.loader },
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            hmr: true,
+                        },
+                    },
                     { loader: 'css-loader' },
                     { loader: 'postcss-loader' },
                     { loader: 'less-loader' },

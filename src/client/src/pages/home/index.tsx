@@ -11,7 +11,6 @@ interface IHomeProps {
 
 const Home: ISFC<IHomeProps> = ({ initData }) => {
     const { content = '没有数据' } = initData;
-    // console.log('bbbbb');
     function handleClick() {
         // eslint-disable-next-line no-alert
         alert('cccc');
@@ -19,6 +18,7 @@ const Home: ISFC<IHomeProps> = ({ initData }) => {
 
     return (
         <div className="home">
+            <div>123567</div>
             <div role="button" tabIndex={0} onClick={handleClick}>
                 {content}
             </div>

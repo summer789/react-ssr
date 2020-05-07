@@ -21,4 +21,4 @@ const App: FC<IAppProps> = ({ routers }) => {
     );
 };
 
-export default hot(App);
+export default App;
