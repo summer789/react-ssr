@@ -18,6 +18,7 @@ export const webpackDevConfig: Configuration = merge(commonConfig, {
         publicPath: 'http://localhost:9002/',
         filename: 'js/main.js',
         path: paths.appOutputPath,
+        chunkFilename: 'js/[name].chunk.js',
     },
     resolve: {
         alias: {

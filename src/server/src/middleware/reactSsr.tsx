@@ -6,8 +6,9 @@ import App from '../../../client/src/app';
 import { routers } from '../../../client/src/routeConfig';
 import { matchRoute } from '../../../utils/common';
 import { InitDataContext } from '../../../client/src/context';
-import { IPageData } from '../../../utils/interface';
+import { IPageData, SSRHOC } from '../../../utils/interface';
 import { getAssets } from '../common/assets';
+import { getStaticRouters } from '../common/get-static-routes';
 
 const defaultTdk = {
     title: 'react ssr',
@@ -19,9 +20,11 @@ const reactSsr: Application.Middleware = async (ctx, next) => {
     const {
         request: { path },
     } = ctx;
+
     const assets = getAssets();
-    const currentRoute = matchRoute(path, routers);
-    const fetchData = currentRoute?.component?.fetchInitialProps;
+    const staticRoutes = await getStaticRouters(routers);
+    const currentRoute = matchRoute(path, staticRoutes);
+    const fetchData = (currentRoute?.component as SSRHOC)?.fetchInitialProps;
     let pageData: IPageData = {} as IPageData;
     if (fetchData) {
         pageData = await fetchData();
@@ -35,7 +38,7 @@ const reactSsr: Application.Middleware = async (ctx, next) => {
     const html = renderToString(
         <StaticRouter location={path}>
             <InitDataContext.Provider value={context}>
-                <App routers={routers} />
+                <App routers={staticRoutes} />
             </InitDataContext.Provider>
         </StaticRouter>,
     );

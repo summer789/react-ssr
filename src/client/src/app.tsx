@@ -13,7 +13,7 @@ const App: FC<IAppProps> = ({ routers }) => {
     return (
         <Layout>
             <Switch>
-                {routers.map((item) => (
+                {routers.map((item: any) => (
                     <Route key={item.path} {...item} />
                 ))}
             </Switch>

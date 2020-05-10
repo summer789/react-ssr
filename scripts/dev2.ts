@@ -7,8 +7,8 @@ import { webpackDevConfig } from '../config/webpack.dev.config';
 import { CLIENT_SERVER_PORT } from '../utils/constant';
 const config: WebpackDevServer.Configuration = {
     quiet: true, //不显示构建日志
-    contentBase: paths.appOutputPath,
-    publicPath: webpackDevConfig.output?.publicPath,
+    // contentBase: paths.appOutputPath,
+    publicPath: '/',
     hot: true,
     open: false,
     port: CLIENT_SERVER_PORT,

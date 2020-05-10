@@ -11,6 +11,9 @@ const Layout: FC = ({ children }) => {
                 <li>
                     <Link to="/list">列表</Link>
                 </li>
+                <li>
+                    <Link to="/lazy">lazy</Link>
+                </li>
             </ul>
             {children}
         </div>

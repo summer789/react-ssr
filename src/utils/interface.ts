@@ -1,16 +1,22 @@
 import { FunctionComponent, ComponentClass } from 'react';
 
+export type DyHOCFn = (props?: AsyncLoaderProps) => React.ReactNode;
+
+export interface AsyncLoaderProps {
+    loader(): Promise<{ default: React.ComponentType }>;
+    loading: React.ComponentType;
+}
+
 export interface IRouterItem {
     path: string;
     exact: boolean;
-    component: SSRHOC;
+    component: SSRHOC | DyHOCFn;
 }
 
 export interface IMackDataItem {
     title: string;
     desc: string;
 }
-
 
 export interface ITdkData {
     title: string;
